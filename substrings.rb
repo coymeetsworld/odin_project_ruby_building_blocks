@@ -1,7 +1,4 @@
-#!/usr/bin/ruby
-
 def substrings word, dictionary
-
 	frequency = Hash.new(0)
 	for i in 0..word.length
 		for j in i...word.length

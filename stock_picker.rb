@@ -1,7 +1,4 @@
-#!/usr/bin/ruby
-
 def stock_picker stock_price_array
-
 	difference = 0
 	buy_day_ndx = 0
 	sell_day_ndx = 0

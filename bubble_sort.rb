@@ -1,5 +1,3 @@
-#!/usr/bin/ruby
-
 def bubble_sort array
 	begin
 		sort_performed = false
