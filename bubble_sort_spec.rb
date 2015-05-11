@@ -1,5 +1,19 @@
 require_relative "bubble_sort"
 
+def bubble_sort_by array
+  begin
+    sort_performed = false
+    for i in 0...array.length-1
+      comp_value = yield(array[i],array[i+1])
+			if comp_value < 0
+        array[i],array[i+1] = array[i+1],array[i]
+        sort_performed =true
+      end
+    end 
+  end until !sort_performed
+  return array
+end
+
 describe "Bubble Sort" do
 	it "sort 2 item number array" do
     expect(bubble_sort([2,1])).to eq([1,2])
@@ -36,35 +50,38 @@ describe "Bubble Sort" do
 		expect(bubble_sort([4,3,78,2,0,2])).to eq([0,2,2,3,4,78])
 	end
 
+	left = ""
+	right = ""
+
 	it "sort 2 item string array" do
-		arr = bubble_sort_by(["this","that"]) do |left, right|
+		arr = bubble_sort_by(["that","hi"]) do |left, right|
 			right.length - left.length
 		end
-		expect(arr).to eq (["that","this"])
+		expect(arr).to eq (["hi","that"])
 	end
 
 	it "sort already sorted string array" do
-		arr = bubble_sort_by(["abc","def"]) do |left, right|
+		arr = bubble_sort_by(["abc","defghi"]) do |left, right|
 			right.length - left.length
 		end
-		expect(arr).to eq (["abc","def"])
+		expect(arr).to eq (["abc","defghi"])
 
-		arr = bubble_sort_by(["a","b","c","d","e"]) do |left, right|
+		arr = bubble_sort_by(["a","bb","ccc","dddd","eeeee"]) do |left, right|
 			right.length - left.length
 		end
-		expect(arr).to eq (["a","b","c","d","e"])
+		expect(arr).to eq (["a","bb","ccc","dddd","eeeee"])
 	end
 
 	it "sort backwards string array" do
-		arr = bubble_sort_by(["e","d","c","b","a"]) do |left, right|
+		arr = bubble_sort_by(["eeeee","dddd","ccc","bb","a"]) do |left, right|
 			right.length - left.length
 		end
-		expect(arr).to eq (["a","b","c","d","e"])
+		expect(arr).to eq (["a","bb","ccc","dddd","eeeee"])
 
-		arr = bubble_sort_by(["zebra","xylophone","yak","dragon","alpha"]) do |left, right|
+		arr = bubble_sort_by(["zebras","xylophone","yak","dragons","alpha"]) do |left, right|
 			right.length - left.length
 		end
-		expect(arr).to eq (["alpha","dragon","yak","xylophone","zebra"])
+		expect(arr).to eq (["yak","alpha","zebras","dragons","xylophone"])
 	end
 
 	it "sort string array with all same values" do
@@ -83,7 +100,7 @@ describe "Bubble Sort" do
 		arr = bubble_sort_by(["tango","foxtrot","tango","foxtrot"]) do |left, right|
 			right.length - left.length
 		end
-		expect(arr).to eq (["foxtrot","foxtrot","tango","tango"])
+		expect(arr).to eq (["tango","tango","foxtrot","foxtrot"])
 	end
 
 	it "sort string example" do
